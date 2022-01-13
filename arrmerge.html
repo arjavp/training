@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>using concat method</h3>
+    <p id = "demo"></p>
+    <h3>using spread method</h3>
+    <p id = "demo2"></p>
+    <h3>using push method</h3>
+    <p id = "demo3"></p>
+
+
+    <script>
+        const frontend = ["react", "angular"];
+        const backend = ["node", "python"];
+
+        function method1(frontend,backend) {
+            let both = frontend.concat(backend);
+            return both;
+        }
+        let res = method1(frontend,backend);
+        document.getElementById("demo").innerHTML = res;
+
+
+
+        
+        function method2(frontend,backend){
+           return [...frontend, ...backend];
+           
+        }
+
+        let res2 = method2(frontend,backend);
+        //console.log(res2);
+        document.getElementById("demo3").innerHTML = res2;
+        
+        
+        
+        function method3(frontend,backend){
+             frontend.push(...backend);
+             return frontend;
+        }
+
+        let res3 = method3(frontend,backend);
+        document.getElementById("demo2").innerHTML = res3;
+
+
+    </script>
+    
+</body>
+</html>
