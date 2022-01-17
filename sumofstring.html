@@ -12,18 +12,16 @@
 <h3>pls open console to see the output.</h3>
 <p id = "demo"></p>
 <script>
-    // sum of given string
- function sumStr(str) {
+// sum of given string
+ function sumStrnum(str) {
    let strArr = str.split(",");
-  return strArr.reduce(function(total,num){
-     return Number(total) + Number(num);
-      
+  return strArr.reduce(function(previousValue,nextValue){
+     return Number(previousValue) + Number(nextValue);    
     });
-
   }
 
   let str   = "10.50,20,30,40,100,200";
-  let res = sumStr(str);
+  let res = sumStrnum(str);
   console.log(res);
   document.getElementById("demo").innerHTML = "Sum Of Given String is " + res;
   
