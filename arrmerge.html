@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Different ways to merge array</title>
 </head>
 <body>
     <h3>using concat method</h3>
@@ -19,33 +19,32 @@
         const frontend = ["react", "angular"];
         const backend = ["node", "python"];
 
-        function method1(frontend,backend) {
+     // Defining the functions   
+        function useconcat(frontend,backend) {
             let both = frontend.concat(backend);
             return both;
         }
-        let res = method1(frontend,backend);
-        document.getElementById("demo").innerHTML = res;
-
-
-
         
-        function method2(frontend,backend){
+        function arrspread(frontend,backend){
            return [...frontend, ...backend];
-           
         }
-
-        let res2 = method2(frontend,backend);
-        //console.log(res2);
-        document.getElementById("demo3").innerHTML = res2;
-        
-        
-        
-        function method3(frontend,backend){
+           
+        function arrpush(frontend,backend){
              frontend.push(...backend);
              return frontend;
         }
 
-        let res3 = method3(frontend,backend);
+
+    //calling functions    
+        let res = useconcat(frontend,backend);
+        document.getElementById("demo").innerHTML = res;
+
+        let res2 = arrspread(frontend,backend);
+        //console.log(res2);
+        document.getElementById("demo3").innerHTML = res2;
+        
+
+        let res3 = arrpush(frontend,backend);
         document.getElementById("demo2").innerHTML = res3;
 
 
