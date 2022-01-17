@@ -23,28 +23,25 @@
             let both = frontend.concat(backend);
             return both;
         }
-        let res = method1(frontend,backend);
-        document.getElementById("demo").innerHTML = res;
-
-
 
         
         function method2(frontend,backend){
            return [...frontend, ...backend];
            
         }
-
-        let res2 = method2(frontend,backend);
-        //console.log(res2);
-        document.getElementById("demo3").innerHTML = res2;
-        
-        
         
         function method3(frontend,backend){
              frontend.push(...backend);
              return frontend;
         }
 
+        let res = method1(frontend,backend);
+        document.getElementById("demo").innerHTML = res;
+
+        let res2 = method2(frontend,backend);
+        //console.log(res2);
+        document.getElementById("demo3").innerHTML = res2;
+        
         let res3 = method3(frontend,backend);
         document.getElementById("demo2").innerHTML = res3;
 
