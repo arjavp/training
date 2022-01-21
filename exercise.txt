@@ -1,0 +1,204 @@
+
+
+// Create employee table in demo database
+create table demo.employee
+(
+Employee_id varchar(100),
+First_name char(25),
+Last_name char(25),
+salary int(9),
+joining_date date,
+department char(25)
+);
+
+// create reward table into demo database
+create table demo.reward 
+(
+employee_ref_id varchar(100),
+date_reward date,
+amount int(9)
+);
+
+//insert values in employee table
+insert into employee 
+values
+(20,"arjav","panchal",25000,"2022-01-01","IT"
+);
+insert into employee 
+values
+(30,"bob","kinto",55000,"2022-02-01","IT"
+);
+insert into employee 
+values
+(40," jerry","kanso",33000,"2022-02-01","ACCOUNT"
+);
+insert into employee 
+values
+(50,"phillip","jose",30000,"2022-01-01","general manager"
+);
+insert into employee 
+values
+(60,"jhon","abraham",26000,"2022-03-01","damager"
+);
+
+select * from employee;
+
+insert into reward 
+values(20,"2022-02-01",3000);
+insert into reward 
+values(30,"2022-03-01",5000);
+insert into reward 
+values(50,"2022-03-01",1500);
+insert into reward 
+values(20,"2022-03-01",8000);
+select * from reward;
+
+// task 1 Get all employees.
+    
+    select * from employee;
+
+// task 2 Display the first name and last name of all employees.
+    
+    select First_name,Last_name from employee;
+
+
+// task 3 Display the first name and last name of all employees.
+    
+    select First_name as EmployeeName from employee;
+
+//task 4 Get all “Last_Name” in lowercase.
+
+    select lower(Last_name) from employee;
+
+// task 5 Get all “Last_Name” in uppercase.
+
+    select upper(Last_name) from employee;
+
+// task 6 Get unique “DEPARTMENT”.
+
+    select distinct department from employee;    
+
+// task 7  Get the first 4 characters of “FIRST_NAME” column.
+
+    select substring(First_name,1,4) from employee;
+
+// task 8 Get the position of the letter ‘h’ in ‘Jhon’.
+
+    select locate('h', First_name) from employee
+     where first_name = 'jhon';
+
+// task 9 Get all values from the “FIRST_NAME” column after removing white space on the right.
+
+    select rtrim(First_name) from employee
+
+//task 10 Get all values from the “FIRST_NAME” column after removing white space on the left.
+
+    select ltrim(First_name) from employee;
+
+// task 11 Write the syntax to create the “employee” table.
+
+    create table demo.employee
+    (
+    Employee_id varchar(100),
+    First_name char(25),
+    Last_name char(25),
+    salary int(9),
+    joining_date date,
+    department char(25)
+    );
+
+//  task 12 Get all the details about employees whose first name begins with ‘B’.
+
+    select * from employee 
+    where First_name like 'b%';
+
+// task 13 Get all the details about employees whose first name contains ‘o’.
+
+    select * from employee 
+    where First_name like '%o%';
+
+// task 14 Get all the details of the employees whose first name ends with ‘n’.
+
+    select * from employee 
+    where First_name like '%n';
+
+// task 15 Get all the details about employees whose first name ends with ‘n’ and contains 4 letters.
+
+    select * from employee 
+    where First_name like '___n';
+
+// task 16 Get all the details about employees whose first name begins with ‘J’ and contains 4 letters.
+
+    select * from employee 
+    where First_name like '___n';
+
+// task 17 Get all the details of employees whose salary is over 30,000.
+
+    select * from employee
+    where salary > 30000;
+
+// task 18 Get all the details about employees whose salary is less than 30,000.
+
+    select * from employee
+    where salary < 30000;
+
+// task 19 Get all the details about employees with a salary between 20,000 and 50,000.
+
+    select * from employee 
+    where salary between 20000 and 40000;
+
+// task 20 Get all the details about employees whose first name is ‘Bob’ or ‘Arjav’.
+
+    select * from employee
+    where First_name = 'bob' OR First_name = 'arjav';
+
+// task 21  Get all the details about employees whose joining year is “2022”.
+
+    select * from employee
+    where year(joining_date) = '2022';
+
+// task 22 Get the length of the text in the “First_name” column.
+
+        select length(First_name) from employee;
+
+// task 23 Get the employee’s first name after replacing ‘o’ with ‘#’.
+
+    select Replace(First_name,'o','#') from employee;
+
+// task 24 Get the employee’s last name and first name in a single column separated by a ‘_’.
+
+    select concat(First_name , '_' , Last_name) from employee;
+
+// task 25 Get the year, month, and day from the “Joining_date” column.
+
+    select year(joining_date),
+    month(joining_date),
+    day(joining_date) from employee;
+
+// task 26 Get all employees in ascending order by first name.
+
+    select * from employee
+    order by First_name asc;
+
+// task 27 Get all employees in descending order by first name.
+
+    select * from employee
+    order by First_name desc;
+
+// task 28 Get all employees in ascending order by first name and descending order by salary.
+
+    select * from employee
+    order by first_name asc, salary desc;
+
+// task 29 Get employees whose first name is “Bob”.
+
+    select * from employee 
+    where First_name = 'bob';
+
+// task 30 Get employees whose first name is neither “Bob” nor “arjav”.
+
+    select * from employee
+    where first_name not in('bob','arjav');
+
+
+
