@@ -202,3 +202,89 @@ select * from reward;
 
 
 
+// main task 
+// creating department table in demo database
+create table demo.department(
+    dept_id int not null auto_increment ,
+    dept_name char (30),
+    dept_creted_date date,
+    primary key(dept_id)
+);
+
+// creating employee table in demo database
+create table demo.employee(
+    emp_id int not null auto_increment ,
+    emp_name char (30),
+    emp_no varchar(12));
+    dept_id int,
+    join_date date ,
+    end_date  date,
+    primary key(emp_id)
+    foreign key (dept_id) references department(dept_id)
+);
+
+// creating salary table in demo database
+create table demo.salary(
+    sal_id int not null auto_increment,
+    emp_id int,
+    mos int,
+    yos year,
+    amount int(11),
+    sal_gen_date date,
+    primary key(sal_id),
+    foreign key (emp_id) references employee(emp_id),
+    check (mos!=0 and mos<=12)
+);
+
+// inserting values in department table
+
+insert into department(dept_name,dept_creted_date) values('IT department','2017-01-01');
+insert into department(dept_name,dept_creted_date) values('ACCOUNT','2017-01-01');
+insert into department(dept_name,dept_creted_date) values('MAINTENANCE','2017-01-01');
+insert into department(dept_name,dept_creted_date) values('HRM','2017-01-01');
+insert into department(dept_name,dept_creted_date) values('R&D','2017-01-01');
+
+
+// inserting values in employee table
+
+insert into employee(emp_name,emp_no,join_date,dept_id) values('bob',8866415745,'2017-01-15',(select dept_id from department where dept_name = 'IT department' ));
+
+insert into employee(emp_name,emp_no,join_date,dept_id) values('bob',8866415745,'2017-01-15',(select dept_id from department where dept_name = 'IT department' ));
+
+like wise 
+
+//inserting into salary table
+
+
+    insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',30000,'2017-02-04',(select emp_id from employee where emp_id = 1 ));
+    insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',25000,'2017-02-04',(select emp_id from employee where emp_id = 2 ));
+    insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',28000,'2017-02-04',(select emp_id from employee where emp_id = 3 ));
+    insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',32000,'2017-02-04',(select emp_id from employee where emp_id = 4 ));
+    insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',35000,'2017-02-04',(select emp_id from employee where emp_id = 5 ));
+
+
+// retriving data from all three tables 
+    
+    select * from department
+    join employee on (employee.dept_id =department.dept_id)
+    join salary on (salary.emp_id = employee.emp_id);
+
+
+// updating salary = 35000 of employee having id = 3 
+    
+    update salary 
+    set amount = 35000
+    where emp_id = 3;
+
+
+// update end date of employee having id 4
+    
+    update employee
+    set end_date = '2019-12-31'
+    where emp_id = 4;
+
+// update department name from 'R&D' to 'research and development' 
+
+    update department 
+    set dept_name = 'research & development'
+    where dept_id= 5;
