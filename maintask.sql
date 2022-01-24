@@ -43,6 +43,7 @@ insert into employee(emp_name,emp_no,join_date,dept_id) values('alex',8320448456
 insert into employee(emp_name,emp_no,join_date,dept_id) values('sam',9325874568,'2017-01-15',(select dept_id from department where dept_name = 'MAINTENANCE' ));
 insert into employee(emp_name,emp_no,join_date,dept_id) values('joy',9145872654,'2017-01-15',(select dept_id from department where dept_name = 'HRM' ));
 insert into employee(emp_name,emp_no,join_date,dept_id) values('john',9752634879,'2017-01-15',(select dept_id from department where dept_name = 'R&D' ));
+insert into employee(emp_name,emp_no,join_date,dept_id) values('ronny',9357846357,'2017-01-15',(select dept_id from department where dept_name = 'R&D' ));
 
 select * from employee;
 
@@ -52,6 +53,7 @@ insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',25000,'2
 insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',28000,'2017-02-04',(select emp_id from employee where emp_id = 3 ));
 insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',32000,'2017-02-04',(select emp_id from employee where emp_id = 4 ));
 insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (2,'2017',35000,'2017-02-04',(select emp_id from employee where emp_id = 5 ));
+insert into salary(mos,yos,amount,sal_gen_date,emp_id) values (3,'2017',35000,'2017-02-04',(select emp_id from employee where emp_name = 'ronny' ));
 
 select * from salary;
 
@@ -71,6 +73,13 @@ where emp_id = 4;
 update department 
 set dept_name = 'research & development'
 where dept_id= 5;
+
+
+delete from salary
+where emp_id = 6;
+
+delete from employee
+where emp_name = 'ronny';
 
 
 
