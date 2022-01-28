@@ -13,35 +13,35 @@
 
 // insert data in department  
 
-    db.department.insertMany([{id:'dept_IT',dept_name:"IT",cre_date:"2020-01-01" },
-    {id:'dept_ACC',dept_name:"ACCOUNT",cre_date:"2020-01-01" },
-    {id:'dept_TEST',dept_name:"TESTING",cre_date:"2020-01-01" },
-    {id:'dept_HR',dept_name:"HR",cre_date:"2020-01-01" }])
+    db.department.insertMany([{ id : 'dept_IT', dept_name : "IT", cre_date : "2020-01-01" },
+    { id : 'dept_ACC', dept_name : "ACCOUNT", cre_date : "2020-01-01" },
+    { id : 'dept_TEST', dept_name : "TESTING", cre_date : "2020-01-01" },
+    { id : 'dept_HR', dept_name : "HR", cre_date : "2020-01-01" }])
     
 // insert data in employee 
 
-    db.employee.insertMany([{emp_id:1,emp_name:"pratham",emp_no:11,dept_id:"dept_IT",join_date:"2020-03-01",end_date:"2021-12-31"},
-    {emp_id:2,emp_name:"harshil",emp_no:12,dept_id:"dept_dept_ACC",join_date:"2020-02-01",end_date:"2021-12-31"},
-    {emp_id:3,emp_name:"vivek",emp_no:13,dept_id:"dept_HR",join_date:"2020-02-01",end_date:"2021-12-31"}])
+    db.employee.insertMany([{ emp_id : 1, emp_name : "pratham", emp_no : 11, dept_id : "dept_IT", join_date : "2020-03-01", end_date : "2021-12-31"},
+    { emp_id : 2, emp_name : "harshil", emp_no : 12, dept_id : "dept_dept_ACC", join_date : "2020-02-01", end_date : "2021-12-31"},
+    { emp_id : 3, emp_name : "vivek", emp_no : 13, dept_id : "dept_HR", join_date : "2020-02-01", end_date : "2021-12-31"}])
 
 // insert data in salary
 
-    db.salary.insertMany([{sal_id:1,emp_id:1,month:2,year:'2020',amount:25000,generated_date:"2020-02-02"},
-    {sal_id:2,emp_id:2,month:3,year:'2020',amount:20000,generated_date:"2020-03-02"},
-    {sal_id:3,emp_id:3,month:4,year:'2020',amount:15000,generated_date:"2020-04-02"}])
+    db.salary.insertMany([{ sal_id : 1, emp_id : 1, month : 2, year : '2020', amount : 25000, generated_date : "2020-02-02"},
+    { sal_id : 2, emp_id : 2, month : 3, year : '2020', amount : 20000, generated_date : "2020-03-02"},
+    { sal_id : 3, emp_id : 3, month : 4, year : '2020', amount : 15000, generated_date : "2020-04-02"}])
 
 // retrive all employees along with salary and department details
 
-    db.employee.aggregate({$lookup:{from:'department',localField:'dept_id',foreignField:"id", as:"department_details" }},
-    {$lookup:{from:"salary",localField:"sal_id",foreignField:"emp_id", as: "Salary_details"}}).pretty()
+    db.employee.aggregate({ $lookup : { from : 'department', localField : 'dept_id', foreignField : "id", as : "department_details" }},
+    { $lookup : { from : "salary" , localField : "sal_id" , foreignField : "emp_id", as: "Salary_details"}}).pretty()
 
 // update query
 
-  1. db.employee.updateOne({emp_name:'harshil'},{$set:{dept_id:'dept_ACC'}})
+  1. db.employee.updateOne({ emp_name : 'harshil' },{ $set : { dept_id : 'dept_ACC' }})
 
-  2. db.salary.updateOne({sal_id:1},{$set: {amount:30000}}) 
+  2. db.salary.updateOne({ sal_id : 1 },{ $set : {amount:30000} }) 
 
 // delete query  
 
-     db.department.deleteOne({dept_name:"TESTING"})
+     db.department.deleteOne({ dept_name : "TESTING" })
 
