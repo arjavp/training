@@ -82,6 +82,11 @@ delete from employee
 where emp_name = 'ronny';
 
 
+select * from department
+inner join employee
+ON department.dept_id = employee.dept_id
+inner join salary
+ON employee.dept_id = salary.emp_id;
 
 
 
