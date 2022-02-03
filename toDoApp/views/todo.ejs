@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo-App </title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="/styles.css" rel="stylesheet" type="text/css"/>
+    <script src="/todo-list.js"></script>
+
+</head>
+<body>
+    <h1>My ToDo App</h1>
+ <form>
+     <input type="text" name="item" placeholder="enter your todo item..." required/>
+     <button type="submit" >Add Item</button>
+ </form> 
+ <ul>
+     
+     
+    <% for(var i=0; i < data.length;i++){ %>
+        <li><%= data[i].item %></li>
+    <% } %> 
+    <li> Total Items :<%= data.length %></li>
+    
+ </ul>  
+</body>
+</html>
+

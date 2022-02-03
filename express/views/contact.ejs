@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{background: skyblue; font-family: Verdana; color: #fff; padding: 30px;}
+            h1{font-size: 48px; text-transform: uppercase; letter-spacing: 2px; text-align: center;}
+            P{font-size: 16px; text-align: center;}
+            form{text-align: center;}
+        </style>
+    </head>
+    <body>
+        <%- include('partials/nav.ejs') %>
+        <h1>Welcome to contact us page.</h1>
+        <p>contact</p>
+        
+
+        <form id="contact-form" method="POST" action="/contact">
+            <label for="who">who do you want to contact? </label><br>
+            <input type="text" name="who" value = "<%= qs.person %>"><br>
+            <label for="department"> for which department?</label><br>
+            <input type = "text" name = "department" value =" <%= qs.dept %>"><br>
+            <label for = "email"> Your email </label><br>
+            <input type = "email" name = "email"><br>
+            <input type = "submit" name = "submit">
+
+        </form>
+    </body>
+</html>
