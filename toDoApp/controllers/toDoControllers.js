@@ -56,7 +56,7 @@ module.exports = function(app) {
                 if (err) throw err;
                 res.render('todo',{data:data});
             })
-        })    //<= just tried
+        })    
 
         
     });
