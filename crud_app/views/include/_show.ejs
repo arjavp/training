@@ -1,0 +1,36 @@
+<!---  <tr>
+    <td>Course name</td>
+    <td>6 months</td>
+    <td>20000</td>
+    <td>Active</td>
+    <td>
+        <a href="/update-course" class="btn border-shadow update">
+            <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+        </a>
+        <a class="btn border-shadow delete">
+            <span class="text-gradient"><i class="fas fa-times"></i></span>
+        </a>
+        
+    </td>
+</tr> -->
+
+         <% for(var i=0;i < data.length ;i++) 
+        {
+            %> 
+        <tr>
+          <th scope="row"><%= data[i].cid%></th>
+          <td><%= data[i].course_name%></td>
+          <td><%= data[i].duration%></td>
+          <td><%= data[i].fees%></td>
+           <td>
+            <a href="/update-course/<%= data[i].cid%> " class="btn border-shadow update">
+                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+            </a> 
+            <a href="/delete/<%= data[i].cid%> " class="btn border-shadow delete">
+                <span class="text-gradient"><i class="fas fa-times"></i></span>
+            </a>
+            
+        </td>
+          </tr>
+           <% 
+        }  %>

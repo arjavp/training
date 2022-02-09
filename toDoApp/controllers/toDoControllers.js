@@ -4,7 +4,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 //var data = [{item:'read book'},{item:'learn nodejs'},{item:'practice it'}];
 
-mongoose.connect('mongodb+srv://Jigar:test@cluster0.ma0nl.mongodb.net/cluster0?retryWrites=true&w=majority')
+//mongoose.connect('mongodb+srv://Jigar:test@cluster0.ma0nl.mongodb.net/cluster0?retryWrites=true&w=majority')
+
 var mySchema = new mongoose.Schema({
     item: String
 })
@@ -62,4 +63,3 @@ module.exports = function(app) {
     });
     
 };
-
