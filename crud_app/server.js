@@ -25,9 +25,6 @@ app.set("view engine", 'ejs');
 //load assets
 
 app.use('/css', express.static(path.resolve(__dirname,"assets/css")));
-app.use('/img', express.static(path.resolve(__dirname,"assets/img")));
-app.use('/js', express.static(path.resolve(__dirname,"assets/js")));
-
 
 
 //Load routers
@@ -35,13 +32,11 @@ app.use('/js', express.static(path.resolve(__dirname,"assets/js")));
 app.use('/',require('./server/routes/routers'));
 
 //database connection
-sequelize.sync()//.then((result) => {
-    //return course.create({course_name: "Javascript", duration: 15, fees: 12000, status: true})
-    //console.log(result);
-//})
+
+sequelize.sync()
 .then( arjavp => {
     console.log("database connected ")
-    //console.log("course are: " , arjavp)
+    
 })
 .catch((err) => {
     console.log(err);

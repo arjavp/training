@@ -11,7 +11,7 @@
     <div class="container">
         <div class="box-nav d-flex-justify-between">
            <div class="filter">
-               <a href="#"> All Course </a>
+               <a href="/"> All Course </a>
            </div>
         </div>
         <div class="form-title text-center">
@@ -24,33 +24,55 @@
                 <div class="form-group">
                     <label for="name" class="text-light" >Name</label>
                     <input type="hidden" name="id" value="<%= id %>"/>
-                    <input type="text" name="name" placeholder="Name of the Course" value="<%= data.course_name %>">
+                    <input type="text" name="name" placeholder="Name of the Course" value="<%= data.course_name %>" required>
                 </div>
                 <div class="form-group">
                     <label for="Duration" class="text-light">Duration</label>
-                    <input type="text" name="duration" placeholder="Duration of Course" value="<%= data.dataValues.duration %>">
+                    <input type="text" name="duration" placeholder="Duration of Course" value="<%= data.dataValues.duration %>" required>
                 </div>
             
             
                 <div class="form-group">
                     <label for="Fees" class="text-light">Fees</label>
-                    <input type="text" name="fees" placeholder="Fees for the Course" value="<%= data.fees %>">
+                    <input type="text" name="fees" placeholder="Fees for the Course" value="<%= data.fees %>" required>
                 </div>
             
 
             
                 <div class="form-group">
                     
-                    <button type="submit" class="btn text-dark update">Update</button>
-                </div>
+                    <!-- <button type="submit" class="btn text-dark update" >Update</button> -->
+               
+
+                <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    update course
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Course Update</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          updated successfully
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          <button type="submit" class="btn btn-primary" >Save changes</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
             
             </div>
             </form>
-            
-
-        
-
-
     </div>
 </main>
 <!-- /Main site -->

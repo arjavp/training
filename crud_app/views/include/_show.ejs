@@ -1,23 +1,9 @@
-<!---  <tr>
-    <td>Course name</td>
-    <td>6 months</td>
-    <td>20000</td>
-    <td>Active</td>
-    <td>
-        <a href="/update-course" class="btn border-shadow update">
-            <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
-        </a>
-        <a class="btn border-shadow delete">
-            <span class="text-gradient"><i class="fas fa-times"></i></span>
-        </a>
-        
-    </td>
-</tr> -->
+
 <% if(data.length == 0) { %>
 
     <h1>no course added.  pls add courses</h1>
 
-<% } %>
+<% } else { %>
 
          <% for(var i=0;i < data.length ;i++) 
         {
@@ -31,11 +17,46 @@
             <a href="/update-course/<%= data[i].cid%> " class="btn border-shadow update">
                 <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
             </a> 
-            <a href="/delete/<%= data[i].cid%> " class="btn border-shadow delete">
+          
+                <!-- Button trigger modal -->
+<button type="button" class="btn border-shadow delete" data-bs-toggle="modal" data-bs-target="#deleteButton<%= data[i].cid%>">
+    <span class="text-gradient"><i class="fas fa-times"></i></span> 
+  </button> 
+  
+  
+  <!-- Modal -->
+                <div class="modal fade" id="deleteButton<%= data[i].cid%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Course</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        You want to delete course?
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                       <a href="/delete/<%= data[i].cid%>"> <button type="button" class="btn btn-primary" >Save changes</button> </a>
+                        
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+  
+            
+            </div>
+            
+  <!-- Modal -->
+ 
+            <!-- <a href="/delete/<%= data[i].cid%> " class="btn border-shadow delete">
                 <span class="text-gradient"><i class="fas fa-times"></i></span>
-            </a>
+            </a> -->
+       
+            
             
         </td>
           </tr>
-           <% 
-        }  %>
+           <% }  %>
+           <% } %>
