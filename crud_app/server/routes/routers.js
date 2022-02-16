@@ -2,10 +2,6 @@ const express = require("express");
 const route = express.Router();
 const controller = require('../controller/controller');
 const bodyParser = require('body-parser');
-const course = require('../model/coursedb');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-const sequelize = require("../database/conn");
 
 
 var urlencodedParser = bodyParser.urlencoded({extended: false});

@@ -1,21 +1,16 @@
 const course = require('../model/coursedb');
-const bodyParser = require('body-parser');
 const express = require('express');
-const route = express.Router();
-
-const sequelize = require('../database/conn');
 
 module.exports ={
     fetchdata : (req,res) => {
-        sequelize.sync()
-         .then((result) => {
+        
+         
     
         course.findAll( 
         ).then((result)=>{
             res.render('index',{data:result});
-        });});
-    },
-
+        });
+},
     insertData : ( req, res ) => {
 
         course.create({course_name: req.body.name, duration: req.body.duration, fees: req.body.fees});
