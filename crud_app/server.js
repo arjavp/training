@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const bodyparser = require("body-parser");
 const path = require("path");
 const sequelize = require('./server/database/conn');
-const course = require('./server/model/coursedb');
+
 
 const app = express();
 

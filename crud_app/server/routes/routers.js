@@ -14,7 +14,7 @@ route.get('/add_course', (req,res) => {
 });
 
 route.post('/add_course', urlencodedParser , controller.insertData );
-
+    
 route.get('/update-course/:id' , controller.updateDataid);
         
 route.post('/update-course', urlencodedParser, controller.updateData);
