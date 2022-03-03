@@ -10,51 +10,32 @@ module.exports = {
     }
     // find user by email and if email allready exists give error
     else
-      user.find({ email: email }).then((User) => {
-        if (User.length >= 1) {
-          res.badRequest("mail already exists");
-        } else {
-          //Create user
-          user
-            .create({
-              username: username,
-              email: email,
-              password: password,
-            })
-            .fetch()
-            .then((result) => {
-              res.ok("user created", result);
-            })
-            // then(result=>{
-            //   console.log(result)
-            //   Account.create({
-            //     users: result._id,
-            //     acc_name: result.username +" default",
-            //     balance: 0,
-            //     members:[{name: result.username,email: result.email}]
+      user
+        .find({ email: email })
+        .then((User) => {
+          if (User.length >= 1) {
+            res.badRequest("mail already exists");
+          } else {
+            //Create user
+            user
+              .create({
+                username: username,
+                email: email,
+                password: password,
+              })
+              .fetch()
+              .then((result) => {
+                res.ok("user created", result);
+              })
 
-            //   }).then((docs) => {
-            //     console.log(docs)
-            //     res.ok("user created",docs);
-            //   })
-
-            // })
-            // (err, result) => {
-            //   if (err) {
-            //     return res.serverError(err);
-            //   }
-
-            //   return res.ok("user created", result);
-
-            // }
-
-            .catch((err) => {
-              res.badRequest("pls enter valid details");
-            });
-        }
-      }).catch(err => {
-        res.badRequest(err)
-      })
+              .catch((err) => {
+                res.badRequest("pls enter valid details");
+              });
+          }
+        })
+        .catch((err) => {
+          res.badRequest(err);
+        });
   },
 
   // user login
@@ -86,7 +67,7 @@ module.exports = {
             const token = jwt.sign(
               {
                 email: User[0].email,
-                userId: User[0]._id,
+                userId: User[0].id,
               },
               process.env.JWT_KEY,
               {
@@ -103,21 +84,6 @@ module.exports = {
             });
           }
         });
-        //.then((User) => {
-
-        // if (!User) return res.badRequest("User not Found");
-
-        // //compare password
-        // user
-        //   .comparePassword(password, User.password)
-
-        //   .then(() => {
-        //     return res.ok("user logedIn successfully");
-        //   })
-        //   .catch((err) => {
-        //     return res.forbidden("pls enter valid email or password");
-        //   });
-        //})
       })
       .catch((err) => {
         sails.log.error(err);

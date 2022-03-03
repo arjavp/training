@@ -9,6 +9,12 @@
  */
 
 module.exports.policies = {
+  AccountController: {
+    '*': 'isAuthentication'
+  },
+  TransactionController:{
+    '*': 'isAuthentication'
+  }
 
   /***************************************************************************
   *                                                                          *

@@ -8,22 +8,20 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
-const TransactionController = require("../api/controllers/TransactionController");
 
 module.exports.routes = {
-    "GET /getusers" : "UserController.getUsers",
-    "POST /signup" : "UserController.register",
-    "POST /login" : "UserController.login",
-    "POST /addaccount" : "AccountController.create",
-    "DELETE /:accountId" : "AccountController.delete",
-    "GET /account" : "AccountController.getacc",
-    "GET /:accountId" : "AccountController.getaccbyid",
-    "PATCH /:accountId" : "AccountController.acc_update",
-    "GET /transaction" : "TransactionController.getTransaction",
-    "POST /addtransaction" : "TransactionController.addTransaction",
-    "GET /:transactionId" : 'TransactionController.gettranbyid',
-    "PATCH /:transactionId" : 'TransactionController.trns_update',
-    "DELETE /:transactionId" : 'TransactionController.trns_delete',
-
-
+  "GET /getusers": "UserController.getUsers",
+  "POST /signup": "UserController.register",
+  "POST /login": "UserController.login",
+  "POST /addaccount": "AccountController.create",
+  "DELETE /account/:accountId": "AccountController.delete",
+  "GET /account": "AccountController.getacc",
+  "GET /account/:accountId": "AccountController.getaccbyid",
+  "PATCH /account/:accountId": "AccountController.acc_update",
+  "POST /account/addmember/:id": "AccountController.addmember",
+  "GET /transaction": "TransactionController.getTransaction",
+  "POST /transaction/addtransaction": "TransactionController.addTransaction",
+  "GET /:transactionId": "TransactionController.gettranbyid",
+  "PATCH /transaction/:transactionId": "TransactionController.newupdate",
+  "DELETE /transaction/:transactionId": "TransactionController.trns_delete",
 };

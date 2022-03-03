@@ -5,13 +5,17 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
-
 module.exports = {
   //get list of account
   getacc: (req, res, next) => {
-    Account.find()
+    user
+      .find({
+        where: { id: req.userData.userId },
+        select: ["email", "username"],
+      })
+      .populate("Accounts", { select: ["acc_name", "balance"] })
       .then((docs) => {
+        console.log(docs);
         res.ok(docs);
       })
       .catch((err) => {
@@ -24,7 +28,7 @@ module.exports = {
 
   // create account
   create: (req, res) => {
-    let { acc_name} = req.body;
+    let { acc_name } = req.body;
 
     // check account is already exists or not
     Account.find({ acc_name: acc_name }).then((account) => {
@@ -33,9 +37,12 @@ module.exports = {
       } else {
         Account.create({
           acc_name: acc_name,
-          users: user.id,
+          users: req.userData.userId,
         })
+          .fetch()
           .then((result) => {
+            console.log(result);
+
             res.ok("account created");
           })
           .catch((err) => {
@@ -47,10 +54,13 @@ module.exports = {
 
   // get account by id
   getaccbyid: (req, res) => {
-    let id = req.body.accountId;
-    Account.findById(id)
+    let id = req.params.accountId;
+    console.log(id);
+    Account.find({ where: { id: id } })
+      .populate("users")
+      .populate("transactions")
       .then((result) => {
-        console.log(result);
+        //console.log(result);
         if (result) {
           res.ok(result);
         } else {
@@ -64,14 +74,15 @@ module.exports = {
 
   // update account
   acc_update: (req, res) => {
-    let id = req.body.accountId;
-    const updateOps = {};
-    for (const ops of req.body) {
-      updateOps[ops.propName] = ops.value;
-    }
+    let user = req.userData;
 
-    Account.update({ _id: id }, { $set: updateOps })
+    let id = req.params.accountId;
+    const { acc_name } = req.body;
+
+    Account.update({ where: { id: id } })
+      .set({ acc_name: acc_name })
       .then((result) => {
+        //console.log(result);
         res.ok("account updated", result);
       })
       .catch((err) => {
@@ -79,14 +90,57 @@ module.exports = {
       });
   },
 
+  //add member to the account
+  addmember: (req, res) => {
+    //console.log("yourid", req.params.id);
+
+    Account.find({ id: req.params.id })
+      .limit(1)
+      .then((result) => {
+        //console.log(req.params.id);
+        //console.log("result ", result);
+
+        user
+          .find({ email: req.body.email })
+          .limit(1)
+          .then((record) => {
+            Account.addToCollection(req.params.id, "users")
+              .members([record[0].id])
+              .then((data) => {
+                res.ok({ message: "Member Added" });
+              })
+              .catch((err) => {
+                res.badRequest("member not found");
+              });
+          })
+          .catch((err) => {
+            res.badRequest("member not found");
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+  },
+
   // delete account
   delete: (req, res) => {
-    let id = req.body.accountId;
-    Account.remove({
-      _id: id,
-    })
+    let id = req.params.accountId;
+    console.log(id);
+    Transaction.find({ where: { Accounts: id } })
       .then((result) => {
-        res.ok("account deleted successfully", result);
+        console.log(result);
+        Transaction.destroy({ Accounts: id })
+          .fetch()
+          .then((record) => {
+            console.log(record);
+            Account.destroyOne({ id: id }).then((docs) => {
+              console.log(docs);
+              res.ok("account deleted successfully");
+            });
+          });
       })
       .catch((err) => {
         res.badRequest(err);

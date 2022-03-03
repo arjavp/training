@@ -10,7 +10,8 @@ module.exports = {
       type: "String",
       isEmail: true,
       required: true,
-      regex: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+      regex:
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
     },
     password: {
       type: "String",
@@ -21,6 +22,7 @@ module.exports = {
     Accounts: {
       collection: "account",
       via: "users",
+      through: "accountuser",
     },
   },
 
@@ -44,8 +46,8 @@ module.exports = {
       });
       let results = await Account.create({
         users: user.id,
-        acc_name: user.username + "'s default account",
-        balance: 123,
+        acc_name: "default",
+        balance: 0,
         members: [{ name: user.username, email: user.email }],
       }).fetch();
       console.log(results);
@@ -54,7 +56,6 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  
 
     proceed();
   },

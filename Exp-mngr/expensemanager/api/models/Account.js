@@ -18,13 +18,15 @@ module.exports = {
     },
     // Add a reference to user
     users: {
-      model: "user",
+      collection: "user",
+      via: "accounts",
+      through: "accountuser",
     },
 
     // add reference to transaction model
-     transaction: {
+    transactions: {
       collection: "transaction",
-      via: "accounts",
+      via: "Accounts",
     },
   },
 };
