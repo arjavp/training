@@ -23,16 +23,13 @@ module.exports = {
 
   addTransaction: async function (req, res) {
     try {
-      console.log("print body", req.body);
       const userid = req.userData.userId;
       const acc_name = req.body.acc_name;
-      console.log("user id", userid);
       const accountData = await Account.findOne({
         where: { acc_name: acc_name },
       });
       let balance = accountData.balance;
       let accountId = accountData.id;
-      console.log(accountId);
       const { type, description, amount } = req.body;
 
       if (type === "income") {
@@ -76,7 +73,6 @@ module.exports = {
     let id = req.body.transactionId;
     Transaction.findById(id)
       .then((result) => {
-        console.log(result);
         if (result) {
           res.ok(result);
         } else {
@@ -103,32 +99,21 @@ module.exports = {
       const newamount = req.body.amount;
       const amount = Number(newamount);
       if (transaction[0].type === "income") {
-        console.log(transaction[0].type);
         if (type === "income") {
-          console.log(balance);
           balance = balance - transaction[0].amount;
-          console.log(balance);
           balance = balance + amount;
-          console.log(balance);
         } else if (type === "expense") {
           balance = balance - transaction[0].amount;
-          console.log(balance);
           balance = balance - amount;
-          console.log(balance);
         }
       }
       if (transaction[0].type === "expense") {
-        console.log(transaction[0].type);
         if (type === "income") {
           balance = balance + transaction[0].amount;
-          console.log(balance);
           balance = balance + amount;
-          console.log(balance);
         } else if (type === "expense") {
           balance = balance + transaction[0].amount;
-          console.log(balance);
           balance = balance - amount;
-          console.log(balance);
         }
       } else {
       }
@@ -156,19 +141,14 @@ module.exports = {
   trns_delete: async function (req, res) {
     try {
       let id = req.params.transactionId;
-      console.log("transactionid", id);
       const transaction = await Transaction.find({
         where: { id: id },
       }).populate("Accounts");
-      console.log("transaction details", transaction);
       const accountId = transaction[0].Accounts.id;
-      console.log("accountid", accountId);
       const accountDetails = await Account.find({
         where: { id: accountId },
       }).limit(1);
-      console.log("account details", accountDetails);
       let balance = accountDetails[0].balance;
-      console.log("balance from account", balance);
       if (transaction[0].type === "income") {
         balance = balance - transaction[0].amount;
       } else if (transaction[0].type === "expense") {

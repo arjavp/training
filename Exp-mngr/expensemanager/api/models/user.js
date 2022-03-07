@@ -60,16 +60,5 @@ module.exports = {
     proceed();
   },
 
-  // comparePassword(password, encryptedPassword) {
-  //   return new Promise(function (resolve, reject) {
-  //     bcrypt.compare(password, encryptedPassword, (err, match) => {
-  //       if (err) {
-  //         sails.log.error(err);
-  //         return reject("Something went wrong!");
-  //       }
-  //       if (match) return resolve();
-  //       else return reject("Mismatch passwords");
-  //     });
-  //   });
-  // },
+  
 };

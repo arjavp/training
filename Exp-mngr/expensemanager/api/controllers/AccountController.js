@@ -15,11 +15,9 @@ module.exports = {
       })
       .populate("Accounts", { select: ["acc_name", "balance"] })
       .then((docs) => {
-        console.log(docs);
         res.ok(docs);
       })
       .catch((err) => {
-        console.log(err);
         res.status(404).json({
           error: err,
         });
@@ -41,8 +39,6 @@ module.exports = {
         })
           .fetch()
           .then((result) => {
-            console.log(result);
-
             res.ok("account created");
           })
           .catch((err) => {
@@ -58,7 +54,6 @@ module.exports = {
     console.log(id);
     Account.find({ where: { id: id } })
       .populate("users")
-      .populate("transactions")
       .then((result) => {
         //console.log(result);
         if (result) {
@@ -76,17 +71,34 @@ module.exports = {
   acc_update: (req, res) => {
     let user = req.userData;
 
-    let id = req.params.accountId;
+    let accid = req.params.accountId;
     const { acc_name } = req.body;
+    // const getacc = Account.find({id: accid}).populate('users', {select : ["id"]});
+    // console.log(typeof getacc[0]);
+    Account.findOne({ where: { id: accid } })
+      .populate("users")
+      .then((record) => {
+        let myid = false;
+        record.users.forEach((data) => {
+          //console.log('pop user id',data.id);
+          if (data.id === req.userData.userId) {
+            myid = true;
+          }
+          console.log(myid);
+        });
 
-    Account.update({ where: { id: id } })
-      .set({ acc_name: acc_name })
-      .then((result) => {
-        //console.log(result);
-        res.ok("account updated", result);
-      })
-      .catch((err) => {
-        res.badRequest(err);
+        //console.log("user id", record[0].users[0].id);
+        if (myid) {
+          Account.update({ where: { id: accid } })
+            .set({ acc_name: acc_name })
+            .then((result) => {
+              //console.log(result);
+              res.ok("account updated", result);
+            })
+            .catch((err) => {
+              res.badRequest(err);
+            });
+        }
       });
   },
 
@@ -127,17 +139,29 @@ module.exports = {
 
   // delete account
   delete: (req, res) => {
-    let id = req.params.accountId;
-    console.log(id);
-    Transaction.find({ where: { Accounts: id } })
+    let accid = req.params.accountId;
+   //console.log(accid);
+    Account.findOne({where: { id :accid}}).populate('users').then((doc) => {
+      //console.log('data',doc);
+      let usid = false;
+      doc.users.forEach((data)=>{
+        if(data.id === req.userData.userId){
+          usid = true;
+        }
+        //console.log(usid);
+      })
+    
+
+    if(usid){
+    Transaction.find({ where: { Accounts: accid } })
       .then((result) => {
-        console.log(result);
-        Transaction.destroy({ Accounts: id })
+        //console.log(result);
+        Transaction.destroy({ Accounts: accid })
           .fetch()
           .then((record) => {
-            console.log(record);
-            Account.destroyOne({ id: id }).then((docs) => {
-              console.log(docs);
+            //console.log(record);
+            Account.destroyOne({ id: accid }).then((docs) => {
+              //console.log(docs);
               res.ok("account deleted successfully");
             });
           });
@@ -145,5 +169,7 @@ module.exports = {
       .catch((err) => {
         res.badRequest(err);
       });
+    }
+  });
   },
 };
