@@ -4,7 +4,7 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
+ const msg =  sails.config.messages.Transaction;
  const statCode = sails.config.resstatus.statusCode;
 module.exports = {
   // getTransaction: function (req, res) {
@@ -29,7 +29,7 @@ module.exports = {
       
       if(trns_find.length < 1){
         res.status(statCode.FORBIDDEN).json({
-          message: 'transaction not found'
+          message: msg.Not_Found
         })
       }else{
         res.status(statCode.OK).json({
@@ -71,7 +71,9 @@ module.exports = {
         await Account.updateOne({ where: { acc_name: acc_name } }).set({
           balance: balance,
         });
-        res.ok("balance updated");
+        res.status(statCode.OK).json({
+          message: msg.Updated
+        })
       } else if (type === "expense") {
         if (balance >= amount) {
           await Transaction.create({
@@ -85,15 +87,23 @@ module.exports = {
           await Account.updateOne({ where: { acc_name: acc_name } }).set({
             balance: balance,
           });
-          res.ok("balance updated");
+          res.status(statCode.OK).json({
+            message: msg.Updated
+          });
         } else {
-          res.badRequest("insuficient balance");
+          res.status(statCode.BAD_REQUEST).json({
+            message:msg.bal
+          })
         }
       } else {
-        res.badRequest();
+        res.status(statCode.BAD_REQUEST).json({
+          message: msg.select
+        });
       }
     } catch (err) {
-      res.badRequest(err);
+      res.status(statCode.SERVER_ERROR).json({
+        message : msg.ServerError
+      })
     }
   },
   // gettranbyid: async (req, res) => {
@@ -171,9 +181,13 @@ module.exports = {
           balance: balance,
         });
       } else {
-        res.badRequest("bad request");
+        res.status(statCode.BAD_REQUEST).json({
+          message: msg.bal
+        })
       }
-      res.ok("transaction updated");
+      res.status(statCode.OK).json({
+        message : msg.trns_update
+      })
     } catch (err) {
       res.badRequest(err);
     }
@@ -205,10 +219,14 @@ module.exports = {
         await Transaction.destroy({
           id: id,
         });
-        return res.ok("transaction deleted successfully");
+        return res.status(statCode.OK).json({
+          message: msg.trns_delete
+        })
       }
     } catch (err) {
-      res.badRequest("transaction not deleted");
+      res.status(statCode.SERVER_ERROR).json({
+        message : msg.ServerError
+      })
     }
   },
 };

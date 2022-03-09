@@ -21,7 +21,17 @@ module.exports.messages = {
       Updated: 'Account updated Successfully!',
       Deleted: 'account deleted Successfully!',
       Added: 'member added',
+    },
 
+    Transaction: {
+      OK:'ok',
+      Not_Found: 'Transaction not Found',
+      Updated: 'balance Updated',
+      bal: 'insufficient balance',
+      select: 'pls enter valid type',
+      ServerError: 'server error',
+      trns_update: 'transaction updated',
+      trns_delete: 'transaction deleted',
 
 
 
