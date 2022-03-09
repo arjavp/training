@@ -5,22 +5,49 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+ const statCode = sails.config.resstatus.statusCode;
 module.exports = {
-  getTransaction: function (req, res) {
-    Transaction.find()
+  // getTransaction: function (req, res) {
+  //   let id = req.params.id;
+  //   console.log(id)
+  //   Transaction.find({where : {Accounts: id}, sort:'createdAt DESC'})
+  //     .populate("Accounts")
+  //     .then((docs) => {
+  //       console.log(docs);
+  //       res.ok(docs);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       res.badRequest(err);
+  //     });
+  // },
+  getTransaction: async function (req, res) {
+    try{
+    let id = req.params.id;
+    const trns_find = await Transaction.find({where : {Accounts: id}, sort:'createdAt DESC'})
       .populate("Accounts")
-      .then((docs) => {
-        console.log(docs);
-        res.ok(docs);
-      })
-      .catch((err) => {
+      
+      if(trns_find.length < 1){
+        res.status(statCode.FORBIDDEN).json({
+          message: 'transaction not found'
+        })
+      }else{
+        res.status(statCode.OK).json({
+          message: trns_find
+        })
+      }
+    }
+      catch(err)  {
         console.log(err);
         res.badRequest(err);
-      });
+      };
   },
-
-  // get transaction by id
-
+  
+/**
+ * 
+ * @param {request} req 
+ * @param {response} res 
+ */
   addTransaction: async function (req, res) {
     try {
       const userid = req.userData.userId;
@@ -69,20 +96,35 @@ module.exports = {
       res.badRequest(err);
     }
   },
-  gettranbyid: (req, res) => {
-    let id = req.body.transactionId;
-    Transaction.findById(id)
-      .then((result) => {
-        if (result) {
-          res.ok(result);
-        } else {
-          res.badRequest("enter valid id");
-        }
-      })
-      .catch((err) => {
-        res.badRequest(err);
-      });
-  },
+  // gettranbyid: async (req, res) => {
+  //   try{
+  //   let id = req.params.transactionId;
+  //   console.log(id)
+  //  const trns_find = await Transaction.find({where : {Accounts: id}}).populate('Accounts')
+  //  console.log(trns_find)
+  //     if(trns_find.length < 1){
+  //       res.status(statCode.NOT_FOUND).json({
+  //         message : 'transaction not found'
+  //       })
+  //     }
+  //     else{
+  //       res.status(statCode.OK).json({
+  //         message: trns_find
+  //       })
+  //     }
+   
+  //  // .then((result) => {
+  //     //   if (result) {
+  //     //     res.ok(result);
+  //     //   } else {
+  //     //     res.badRequest("enter valid id");
+  //     //   }
+  //     // })
+  //   }
+  //     catch(err) {
+  //       res.badRequest(err);
+  //     };
+  // },
 
   newupdate: async function (req, res) {
     try {
@@ -93,7 +135,8 @@ module.exports = {
       const accountId = transaction[0].Accounts.id;
       const accountDetails = await Account.find({
         where: { id: accountId },
-      }).limit(1);
+      }).limit(1).populate('users');
+      
       let balance = accountDetails[0].balance;
       const { type, description } = req.body;
       const newamount = req.body.amount;

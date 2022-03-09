@@ -8,12 +8,21 @@
  * https://sailsjs.com/docs/concepts/policies
  */
 
+
 module.exports.policies = {
   AccountController: {
     '*': 'isAuthentication'
   },
   TransactionController:{
     '*': 'isAuthentication'
+  },
+  //'UserController/Logout' : true 
+  
+  'UserController' :{
+    //'*' : 'isAuthentication',
+    'Logout' : "isAuthentication",
+    "*":true
+    //'UserController/logout' : true 
   }
 
   /***************************************************************************

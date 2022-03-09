@@ -8,8 +8,13 @@ module.exports = (req, res, proceed) => {
     //const decoded = jwt.verify(token, "secret");
 
     req.userData = decoded;
+    //console.log('expiry date',req.userData.exp)
+    const exp = req.userData.exp;
+    //console.log(exp);
+    const extp = (Date.now() >= exp * 1000)
+    //console.log('hello',extp)
 
-    console.log(req.userData.userId);
+  
 
     proceed();
   } catch (error) {
@@ -17,4 +22,5 @@ module.exports = (req, res, proceed) => {
       message: "Auth failed",
     });
   }
+  return true
 };
