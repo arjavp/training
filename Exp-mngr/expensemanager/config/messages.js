@@ -26,6 +26,7 @@ module.exports.messages = {
     Transaction: {
       OK:'ok',
       Not_Found: 'Transaction not Found',
+      amount: 'amount must in positive',
       Updated: 'balance Updated',
       bal: 'insufficient balance',
       select: 'pls enter valid type',

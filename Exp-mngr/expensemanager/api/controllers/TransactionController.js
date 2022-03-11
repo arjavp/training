@@ -52,49 +52,55 @@ module.exports = {
       let balance = accountData.balance;
       let accountId = accountData.id;
       const { type, description, amount } = req.body;
-      // create transaction
-      if (type === "income") {
-        await Transaction.create({
-          type: type,
-          description: description,
-          amount: amount,
-          Accounts: accountId,
+      if (amount < 0) {
+        res.status(statCode.BAD_REQUEST).json({
+          message: msg.amount,
         });
-
-        balance = balance + Number(amount);
-        // update balance of account according to type
-        await Account.updateOne({ where: { acc_name: acc_name } }).set({
-          balance: balance,
-        });
-        res.status(statCode.OK).json({
-          message: msg.Updated,
-        });
-      } else if (type === "expense") {
-        if (balance >= amount) {
+      } else {
+        // create transaction
+        if (type === "income") {
           await Transaction.create({
             type: type,
             description: description,
             amount: amount,
             Accounts: accountId,
-          }).fetch();
+          });
 
-          balance = balance - Number(amount);
-          //update balance of account according to type
+          balance = balance + Number(amount);
+          // update balance of account according to type
           await Account.updateOne({ where: { acc_name: acc_name } }).set({
             balance: balance,
           });
           res.status(statCode.OK).json({
             message: msg.Updated,
           });
+        } else if (type === "expense") {
+          if (balance >= amount) {
+            await Transaction.create({
+              type: type,
+              description: description,
+              amount: amount,
+              Accounts: accountId,
+            }).fetch();
+
+            balance = balance - Number(amount);
+            //update balance of account according to type
+            await Account.updateOne({ where: { acc_name: acc_name } }).set({
+              balance: balance,
+            });
+            res.status(statCode.OK).json({
+              message: msg.Updated,
+            });
+          } else {
+            res.status(statCode.BAD_REQUEST).json({
+              message: msg.bal,
+            });
+          }
         } else {
           res.status(statCode.BAD_REQUEST).json({
-            message: msg.bal,
+            message: msg.select,
           });
         }
-      } else {
-        res.status(statCode.BAD_REQUEST).json({
-          message: msg.select,
-        });
       }
     } catch (err) {
       res.status(statCode.SERVER_ERROR).json({

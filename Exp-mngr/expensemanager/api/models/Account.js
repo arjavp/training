@@ -17,7 +17,7 @@ module.exports = {
       type: "Number",
     },
 
-    users: {type :'String'},
+    users: { type: "String" },
     // Add a reference to user
     users: {
       collection: "user",

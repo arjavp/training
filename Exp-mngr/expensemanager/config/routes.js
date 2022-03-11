@@ -8,8 +8,6 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
-
-
 module.exports.routes = {
   "GET /getusers": "UserController.getUsers",
   "POST /signup": "UserController.register",

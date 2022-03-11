@@ -19,11 +19,12 @@ module.exports = (req, res, proceed) => {
             message: "access denied",
           });
         }
-      }).catch(err => {
-          res.status(403).json({
-              message: 'account not exist'
-          })
       })
+      .catch((err) => {
+        res.status(403).json({
+          message: "account not exist",
+        });
+      });
   } catch (error) {
     res.status(400).json({
       message: error,

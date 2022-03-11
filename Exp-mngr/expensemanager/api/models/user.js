@@ -13,15 +13,15 @@ module.exports = {
       regex:
         /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
       unique: true,
-      },
+    },
     password: {
       type: "String",
       minLength: 8,
       required: true,
     },
-    token:{
-      type: 'String',
-      allowNull: true
+    token: {
+      type: "String",
+      allowNull: true,
     },
     // Add a reference to accounts
     Accounts: {
@@ -44,7 +44,7 @@ module.exports = {
   },
 
   // send welcome mail after user signup
-  afterCreate: async  function (user, proceed) {
+  afterCreate: async function (user, proceed) {
     try {
       await sails.helpers.sendMail.with({
         to: user.email,
@@ -56,7 +56,7 @@ module.exports = {
         balance: 0,
         members: [{ name: user.username, email: user.email }],
       }).fetch();
-     // console.log(results);
+      // console.log(results);
       // let docs = await user.addToCollection(user.id, "Account").members([user.acc_name]);
       // console.log(docs);
     } catch (err) {
@@ -65,6 +65,4 @@ module.exports = {
 
     proceed();
   },
-
-  
 };
