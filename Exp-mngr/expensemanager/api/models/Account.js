@@ -16,6 +16,8 @@ module.exports = {
     balance: {
       type: "Number",
     },
+
+    users: {type :'String'},
     // Add a reference to user
     users: {
       collection: "user",

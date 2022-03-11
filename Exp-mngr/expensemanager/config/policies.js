@@ -11,18 +11,21 @@
 
 module.exports.policies = {
   AccountController: {
-    '*': 'isAuthentication'
+    //'*': ['isAuthentication','isUser']
+    'getacc': ['isAuthentication','isLogIn'],
+    'create': ['isAuthentication','isLogIn'],
+    'getaccbyid':['isAuthentication','isUser','isLogIn'],
+    'acc_update':['isAuthentication','isUser','isLogIn'],
+    'delete':['isAuthentication','isUser','isLogIn']
   },
+  
   TransactionController:{
-    '*': 'isAuthentication'
+    '*': ['isAuthentication','isLogIn']
   },
-  //'UserController/Logout' : true 
   
   'UserController' :{
-    //'*' : 'isAuthentication',
-    'Logout' : "isAuthentication",
+    'Logout' : ["isAuthentication",'isLogIn'],
     "*":true
-    //'UserController/logout' : true 
   }
 
   /***************************************************************************
