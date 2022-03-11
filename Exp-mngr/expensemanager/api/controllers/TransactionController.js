@@ -14,7 +14,7 @@ module.exports = {
    */
   getTransaction: async function (req, res) {
     try {
-      let id = req.params.id;
+      let id = req.params.accountId;
       //find transaction by account id
       const trns_find = await Transaction.find({
         where: { Accounts: id },
@@ -43,12 +43,14 @@ module.exports = {
    */
   addTransaction: async function (req, res) {
     try {
-      const userid = req.userData.userId;
-      const acc_name = req.body.acc_name;
+      // const userid = req.userData.userId;
+      // const acc_name = req.body.acc_name;
+      const acc_id = req.params.accountId;
       //find account details
       const accountData = await Account.findOne({
-        where: { acc_name: acc_name },
+        where: { id: acc_id },
       });
+
       let balance = accountData.balance;
       let accountId = accountData.id;
       const { type, description, amount } = req.body;
@@ -68,7 +70,7 @@ module.exports = {
 
           balance = balance + Number(amount);
           // update balance of account according to type
-          await Account.updateOne({ where: { acc_name: acc_name } }).set({
+          await Account.updateOne({ where: { id: acc_id } }).set({
             balance: balance,
           });
           res.status(statCode.OK).json({
@@ -85,7 +87,7 @@ module.exports = {
 
             balance = balance - Number(amount);
             //update balance of account according to type
-            await Account.updateOne({ where: { acc_name: acc_name } }).set({
+            await Account.updateOne({ where: { id: acc_id } }).set({
               balance: balance,
             });
             res.status(statCode.OK).json({
@@ -165,14 +167,17 @@ module.exports = {
         await Account.update({ where: { id: accountId } }).set({
           balance: balance,
         });
+        res.status(statCode.OK).json({
+          message: msg.trns_update,
+        });
       } else {
-        res.status(statCode.BAD_REQUEST).json({
+        return res.status(statCode.BAD_REQUEST).json({
           message: msg.bal,
         });
       }
-      res.status(statCode.OK).json({
-        message: msg.trns_update,
-      });
+      // res.status(statCode.OK).json({
+      //   message: msg.trns_update,
+      // });
     } catch (err) {
       res.badRequest(err);
     }

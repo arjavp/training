@@ -19,7 +19,11 @@ module.exports.policies = {
   },
 
   TransactionController: {
-    "*": ["isAuthentication", "isLogIn"],
+    //"*": ["isAuthentication", "isLogIn"],
+    getTransaction : ['isAuthentication','isLogIn','isAccount'],
+    addTransaction : ["isAuthentication",'isLogIn','isAccount'],
+    newupdate : ['isAuthentication','isLogIn','isAccount'],
+    trns_delete : ['isAuthentication','isLogIn','isAccount']
   },
 
   UserController: {

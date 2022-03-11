@@ -19,8 +19,8 @@ module.exports.routes = {
   "GET /account/:accountId": "AccountController.getaccbyid",
   "PATCH /account/:accountId": "AccountController.acc_update",
   "POST /account/addmember/:id": "AccountController.addmember",
-  "GET /transaction/:id": "TransactionController.getTransaction",
-  "POST /transaction/addtransaction": "TransactionController.addTransaction",
+  "GET /transaction/:accountId": "TransactionController.getTransaction",
+  "POST /transaction/addtransaction/:accountId": "TransactionController.addTransaction",
   "PATCH /transaction/:transactionId": "TransactionController.newupdate",
   "DELETE /transaction/:transactionId": "TransactionController.trns_delete",
 };

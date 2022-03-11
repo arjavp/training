@@ -8,7 +8,8 @@ module.exports.messages = {
       Auth_fail : 'Auth failed',
       Auth: 'Auth Successfull',
       ServerError: 'server error',
-      LogOut: 'logged out successfull'
+      LogOut: 'logged out successfull',
+      TokenExpired: 'token expired'
     },
 
     Account: {
