@@ -16,6 +16,7 @@ module.exports.policies = {
     getaccbyid: ["isAuthentication", "isUser", "isLogIn"],
     acc_update: ["isAuthentication", "isUser", "isLogIn"],
     delete: ["isAuthentication", "isUser", "isLogIn"],
+    addmember: ['isAuthentication','isLogIn']
   },
 
   TransactionController: {

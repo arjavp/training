@@ -1,3 +1,5 @@
+
+
 /**
  * AccountController
  *
@@ -131,20 +133,38 @@ module.exports = {
   addmember: async (req, res) => {
     try {
       //find user is exist in user model or not and add that user in account as member
-      await Account.find({ id: req.params.id }).limit(1);
-      const user_find = await user.find({ email: req.body.email }).limit(1);
-      await Account.addToCollection(req.params.id, "users").members([
-        user_find[0].id,
+      await Account.findOne({ id: req.params.id })
+      const user_find = await user.findOne({ email: req.body.email })
+      if(user_find){
+        const acc_user = await AccountUser.findOne({where:{accounts : req.params.id, users: user_find.id}})
+
+        if(acc_user) {
+          res.status(statCode.CONFLICT).json({
+            message : msg.member_Exist
+          })
+        }else{
+          await Account.addToCollection(req.params.id, "users").members([
+        user_find.id,
       ]);
-      if (user_find.length < 1) {
+      res.status(statCode.OK).json({
+        message: msg.Added,
+      });
+
+        }
+      }else{
         res.status(statCode.NOT_FOUND).json({
           message: "user not found",
         });
-      } else {
-        res.status(statCode.OK).json({
-          message: msg.Added,
-        });
       }
+
+      
+
+      
+      // if (user_find.length < 1) {
+        
+      // } else {
+      
+      // }
     } catch (err) {
       console.log(err);
       res.status(500).json({

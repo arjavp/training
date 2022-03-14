@@ -22,6 +22,7 @@ module.exports.messages = {
       Updated: 'Account updated Successfully!',
       Deleted: 'account deleted Successfully!',
       Added: 'member added',
+      member_Exist : ' member already exist in account'
     },
 
     Transaction: {
