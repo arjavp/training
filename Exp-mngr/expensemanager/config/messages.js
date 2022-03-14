@@ -35,6 +35,9 @@ module.exports.messages = {
       ServerError: 'server error',
       trns_update: 'transaction updated',
       trns_delete: 'transaction deleted',
+      acc_n_found : 'account not found',
+      unAuth: 'access denied',
+      trns_n_found: 'transaction not found'
 
 
 

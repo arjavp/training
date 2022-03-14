@@ -50,6 +50,7 @@ module.exports = {
       const accountData = await Account.findOne({
         where: { id: acc_id },
       });
+  
 
       let balance = accountData.balance;
       let accountId = accountData.id;
@@ -104,6 +105,7 @@ module.exports = {
           });
         }
       }
+    
     } catch (err) {
       res.status(statCode.SERVER_ERROR).json({
         message: msg.ServerError,

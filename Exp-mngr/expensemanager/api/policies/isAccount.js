@@ -1,4 +1,5 @@
 const statCode = sails.config.resstatus.statusCode;
+const msg = sails.config.messages.Transaction;
 
 /**
  * @description This policy checks that if user try to edit transaction is belongs to that particular user or not.
@@ -16,6 +17,7 @@ module.exports = (req, res, proceed) => {
     Account.findOne({ where: { id: accountId } })
       .populate("users")
       .then((result) => {
+        if(result){
         let myid = false;
         //here we checks users id which is stored in account is equal to curent logged in account
         result.users.forEach((data) => {
@@ -27,9 +29,14 @@ module.exports = (req, res, proceed) => {
           proceed();
         } else {
           return res.status(statCode.UNAUTHORIZED).json({
-            message: "access denied",
+            message: msg.unAuth,
           });
         }
+      }else{
+        res.status(statCode.NOT_FOUND).json({
+          message : msg.acc_n_found
+        })
+      }
       });
     //to update or delete transaction we pass transaction id in URL
   } else if (transactionId) {
@@ -55,14 +62,14 @@ module.exports = (req, res, proceed) => {
               proceed();
             } else {
               return res.status(statCode.UNAUTHORIZED).json({
-                message: "access denied",
+                message: msg.unAuth,
               });
             }
           });
       });
   } else {
     return res.status(statCode.UNAUTHORIZED).json({
-      message: "access denied",
+      message: msg.unAuth,
     });
   }
 };
